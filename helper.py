@@ -25,8 +25,15 @@ def fetch_stats(selected_user, df):
     links = []
     for message in df['user_messages']:
         links.extend(extract.find_urls(message))
+    
+    #fetching num of emojis
+    emojis = []
+    for message in df['user_messages']:
+        emojis.extend([c for c in message if c in emoji.EMOJI_DATA])
+    
+    # emoji_df  = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
 
-    return num_messages, len(words), num_media_messages, len(links)
+    return num_messages, len(words), num_media_messages, len(links), len(emojis)
 
 
 def most_busy_user(df):
@@ -56,6 +63,7 @@ def create_wordcloud(selected_user, df):
     wc = WordCloud(width=500, height=500, min_font_size=10, background_color="white")
     temp['user_messages'] = temp['user_messages'].apply(remove_stop_words)
     df_wc = wc.generate(temp['user_messages'].str.cat(sep=""))
+
     return df_wc
 
 

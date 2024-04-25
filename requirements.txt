@@ -1,6 +1,6 @@
-streamlit
-pandas
-matplotlib
-wordcloud
-emoji
-urlextract
+streamlit == 1.33.0
+pandas == 2.1.1
+matplotlib == 3.8.0
+wordcloud == 1.9.3
+emoji == 2.11.1
+urlextract == 1.9.0
