@@ -3,7 +3,7 @@
 ## Overview
 This Python application is built with Streamlit for analyzing WhatsApp chat conversations. It provides insights into various aspects of the chat, including message statistics, timelines, activity maps, word clouds, and more.
 
-[Try out ChatStat](https://whatsappchatanalyse.streamlit.app/) 
+[Try out ChatStat](https://chatlytics.streamlit.app/) 
 
 ## Features
 
@@ -73,7 +73,7 @@ This project is developed using Streamlit, matplotlib, dataPreprocessor, and uti
 - [helper.py](helper.py)
 
 ## Deployment Information
-This app is deployed using [Streamlit Sharing](https://www.streamlit.io/sharing). You can access the live version [here](https://whatsappchatanalyse.streamlit.app/).
+This app is deployed using [Streamlit Sharing](https://www.streamlit.io/sharing). You can access the live version [here](https://chatlytics.streamlit.app/).
 
 ## Hosting Information
 For those interested in hosting or running the app locally, you can follow these steps:
