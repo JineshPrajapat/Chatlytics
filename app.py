@@ -153,8 +153,8 @@ if uploaded_file is not None:
 
         # Most active user
         with tab5:
+            st.title("User Who Chats the Most")
             if selected_user == "Overall":
-                st.title("User Who Chats the Most")
                 x, new_df = helper.most_busy_user(df)
                 
                 col1, col2 = st.columns(2)
@@ -170,6 +170,8 @@ if uploaded_file is not None:
 
                 with col2:
                     st.dataframe(new_df)
+            else:
+                st.markdown("Only applied in group chats")
 
 
         # WordCloud
@@ -197,14 +199,17 @@ if uploaded_file is not None:
 
             col1, col2 = st.columns(2)
 
-            with col1:
-                fig_most_common_words,ax = plt.subplots()
-                ax.barh(most_common_df[0],most_common_df[1])
-                plt.xticks(rotation='vertical')
-                st.pyplot(fig_most_common_words)
+            if len(most_common_df)>0:
+                with col1:
+                    fig_most_common_words,ax = plt.subplots()
+                    ax.barh(most_common_df[0],most_common_df[1])
+                    plt.xticks(rotation='vertical')
+                    st.pyplot(fig_most_common_words)
 
-            with col2:
-                st.dataframe(most_common_df)
+                with col2:
+                    st.dataframe(most_common_df)
+            else:
+                st.markdown("No common words are present")
 
             st.markdown("##")
 
@@ -216,20 +221,24 @@ if uploaded_file is not None:
 
             col1, col2 = st.columns(2)
             
-            with col1:
-                emojis = emoji_df['emojidescription'].head()
-                counts = emoji_df['counts'].head()
+            if len(emoji_df) > 0:
+                with col1:
+                    emojis = emoji_df['emojidescription'].head()
+                    counts = emoji_df['counts'].head()
 
-                fig_common_emoji, ax = plt.subplots()
-                ax.barh(emojis,counts, color="red")
-                ax.set_yticks(np.arange(len(emojis)))
-                ax.set_yticklabels(emojis)
-                ax.set_xlabel('Counts')
-                ax.set_title('Emoji Analysis')
-                st.pyplot(fig_common_emoji)
+                    fig_common_emoji, ax = plt.subplots()
+                    ax.barh(emojis,counts, color="red")
+                    ax.set_yticks(np.arange(len(emojis)))
+                    ax.set_yticklabels(emojis)
+                    ax.set_xlabel('Counts')
+                    ax.set_title('Emoji Analysis')
+                    st.pyplot(fig_common_emoji)
             
-            with col2:
-                st.dataframe(emoji_df)
+                with col2:
+                    st.dataframe(emoji_df)
+            
+            else:
+                st.markdown("No emojis are shared by user")
 
             st.markdown("##")
 
@@ -279,10 +288,11 @@ if uploaded_file is not None:
             st.pyplot(fig_month_activity_map)
             plot_data.append(("MostBusyMonth", fig_month_activity_map))
 
-            st.subheader("Most Active User")
-            st.pyplot(fig_most_active_user)
-            plot_data.append(("MostActiveUsers", fig_most_active_user))
-            st.write(new_df)
+            if selected_user == "Overall":
+                st.subheader("Most Active User")
+                st.pyplot(fig_most_active_user)
+                plot_data.append(("MostActiveUsers", fig_most_active_user))
+                st.write(new_df)
             
 
             st.subheader("Wordcloud")
@@ -292,13 +302,22 @@ if uploaded_file is not None:
                 st.warning("Insufficient chat text for creating a meaningful word cloud.")
 
             st.subheader("Most Common Words")
-            st.pyplot(fig_most_common_words)
-            plot_data.append(("Mostcommmonwords", fig_most_common_words))
+            most_common_df = helper.most_common_words(selected_user,df)
+            if len(most_common_df)>0:
+                st.pyplot(fig_most_common_words)
+                plot_data.append(("Mostcommmonwords", fig_most_common_words))
+            else:
+                st.markdown("No common words are present")
+
 
             st.subheader("Emoji Analysis")
-            st.write(emoji_df)
-            st.pyplot(fig_common_emoji)
-            plot_data.append(("MostcommonEmoji", fig_common_emoji))
+            emoji_df = helper.common_emoji(selected_user, df)
+            if len(emoji_df)>0:
+                st.write(emoji_df)
+                st.pyplot(fig_common_emoji)
+                plot_data.append(("MostcommonEmoji", fig_common_emoji))
+            else:
+                st.markdown("No emojis are shared by user")
 
         # Fetch data from individual tabs
         fig_monthly_timeline = plt.gcf()

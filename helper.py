@@ -103,14 +103,17 @@ def common_emoji(selected_user, df):
     for message in df['user_messages']:
         emojis.extend([c for c in message if c in emoji.EMOJI_DATA])
 
-    emoji_counts = Counter(emojis)
-    emoji_df = pd.DataFrame(emoji_counts.most_common(len(emoji_counts)))
-    
-    # Add a new column 'emojidescription' containing the code of each emoji
-    emoji_df['emojidescription'] = emoji_df[0].apply(lambda x: emoji.demojize(x))
+    if len(emojis)>0:
+        emoji_counts = Counter(emojis)
+        emoji_df = pd.DataFrame(emoji_counts.most_common(len(emoji_counts)))
+        
+        # Add a new column 'emojidescription' containing the code of each emoji
+        emoji_df['emojidescription'] = emoji_df[0].apply(lambda x: emoji.demojize(x))
 
-    # Rename the columns
-    emoji_df.columns = ['emoji', 'counts', 'emojidescription']
+        # Rename the columns
+        emoji_df.columns = ['emoji', 'counts', 'emojidescription']
+    else:
+        return emojis
     
     return emoji_df
 
