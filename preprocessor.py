@@ -8,18 +8,17 @@ def preprocess(data):
 
     df = pd.DataFrame({"user_message" : message, "message_date":dates})
     df['message_date'] = pd.to_datetime(df['message_date'], format = '%d/%m/%y, %I:%M')
-    df.rename(columns = {'message_date':'date'}, inplace=True)
+    df.rename(columns = {'message_date':'DateTime'}, inplace=True)
 
     # spliting date into year, month, date, hours, minutes
-    df['only_date'] = df['date'].dt.date
-    df['year']=df['date'].dt.year
-    df['month']=df['date'].dt.month_name()
-    df['day']=df['date'].dt.day
-    df['day_name'] = df['date'].dt.day_name()
-    df['hours']=df['date'].dt.hour
-    df['minutes']=df['date'].dt.minute
-
-    # df.drop(columns = ['date'], inplace=True)
+    df['Date'] = df['DateTime'].dt.date
+    df['Year']=df['DateTime'].dt.year
+    df['Month']=df['DateTime'].dt.month_name()
+    # df['Day']=df['DateTime'].dt.day
+    df['Day_name'] = df['DateTime'].dt.day_name()
+    df['Hours']=df['DateTime'].dt.hour
+    # df['minutes']=df['DateTime'].dt.minute
+    df['time'] = df['DateTime'].dt.time
 
     # Separating am/pm from text message
     am_pm=[]
@@ -65,12 +64,14 @@ def preprocess(data):
                 message_list.append(message)
 
     df['user_messages'] = message_list
-    df['users'] = user
+    df['User'] = user
 
     # No need of messages column as split into two columns user_message and users
     df.drop(columns = ['messages'], inplace=True)
 
     # Remove rows where the length of the 'users' column is greater than 30 characters
-    df = df[df['users'].str.len() <= 30]
+    df = df[df['User'].str.len() <= 30]
 
     return df
+
+

@@ -1,6 +1,9 @@
-# WhatsApp Chat Analyzer
+# Chatlytics | The WhatsApp Chat Analyzer
 
+## Overview
 This Python application is built with Streamlit for analyzing WhatsApp chat conversations. It provides insights into various aspects of the chat, including message statistics, timelines, activity maps, word clouds, and more.
+
+[Try out ChatStat](https://whatsappchatanalyse.streamlit.app/) 
 
 ## Features
 
@@ -63,6 +66,29 @@ This Python application is built with Streamlit for analyzing WhatsApp chat conv
 18. `most_common_df`: DataFrame for most common words analysis.
 19. `emoji_df`: DataFrame for emoji analysis.
 
+## Development
+This project is developed using Streamlit, matplotlib, dataPreprocessor, and utils. The codebase is available in the files:
+- [app.py](app.py)
+- [preprocessor.py](preprocessor.py)
+- [helper.py](helper.py)
+
+## Deployment Information
+This app is deployed using [Streamlit Sharing](https://www.streamlit.io/sharing). You can access the live version [here](https://whatsappchatanalyse.streamlit.app/).
+
+## Hosting Information
+For those interested in hosting or running the app locally, you can follow these steps:
+
+1. Clone the repository: 
+   ```bash
+   git clone https://github.com/JineshPrajapat/WhatsApp_Chat_Analysis.git
+   cd Chatlytics
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+3. Run the app:
+    ```bash
+    streamlit run app.py
+
 ## Note
 
 - Ensure that the WhatsApp chat text file is exported without media to ensure accurate analysis.
@@ -75,3 +101,15 @@ This Python application is built with Streamlit for analyzing WhatsApp chat conv
 
 ## Ack
 - This application utilizes Streamlit for the web interface and various Python libraries for data processing and visualization.
+- [Streamlit](https://streamlit.io/)
+- [Matplotlib](https://matplotlib.org/)
+
+## Contact
+For any questions or issues, please contact the developers:
+- Jinesh Prajapat - [prajapatjinesh585@gmail.com]
+
+---
+
+<div align="center">🔒 We do not share or store your data beyond the scope of this application.</div>
+
+<div align="center">💖 Developed with love by Jinesh Prajapat. © [2024] Chatlytics.</div>
